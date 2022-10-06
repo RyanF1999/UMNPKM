@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 use yii\bootstrap4\Carousel;
 use app\components\BlogItemWidget;
+use app\components\PkmYearItemWidget;
 
 $this->title = 'Home';
 ?>
@@ -40,6 +41,10 @@ $this->title = 'Home';
         </div>
         <div class="col">
             <h2>List PKM</h2>
+            <?php
+                // render widget BlogItem for pengumuman
+                echo PkmYearItemWidget::widget(['items' => $tahun]);
+            ?>
         </div>
     </div>
 </div>

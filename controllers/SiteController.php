@@ -14,6 +14,7 @@ use app\components\DownloadItem;
 use app\components\KontakItem;
 use app\components\ProfilTable;
 use yii\helpers\Url;
+use app\components\PkmItem;
 
 class SiteController extends Controller
 {
@@ -101,10 +102,15 @@ class SiteController extends Controller
             informasikan hal-hal sebagai berikut", "{$baseurl}/blog/SuratPerpanjanganPemutakhiranDataSINTA.jpeg"),
         ];
 
+        // list tahun pkm
+        $tahun = [2018, 2019, 2020, 2021, 2022];
+        
+
         return $this->render('index', [
             'carousel' => $carousel,
             'kegiatan' => $kegiatan,
-            'pengumuman' => $pengumuman
+            'pengumuman' => $pengumuman,
+            'tahun' => $tahun
         ]);
     }
 
@@ -221,6 +227,119 @@ class SiteController extends Controller
 
         return $this->render('download', [
             'berkas' => $berkas
+        ]);
+    }
+
+    public function actionListpkm()
+    {
+        $year = Yii::$app->getRequest()->getQueryParam('year');
+
+        // data list pkm perlu di isi manual per tahun
+        // jika ada tahun baru buat lah variable baru
+        // isi list pkm berupa no, pelaksana, judul
+        $list2018 = [
+            new PkmItem(1, "Seng Hansun, S.Si., M.Cs. / Muhammad Salehuddin, S.T., M.T. / Marcel Bonar Kristanda, S.Kom., M.Sc.", "Rancang Bangun dan Penerapan Aplikasi E-RT di Kelurahan Periuk Kota Tangerang"),
+            new PkmItem(2, "Makbul Mubarak, S.IP., M.A. / Kus Sudarsono, S.E., M.Sn. / Annita, s.Pd., M.F.A./ Ina L. Riyanto, S.Pd., M.A./ Perdana Kartawiyudha, M.Sn.,", "Film Indonesia (TKFI) 2018 di Sukabumi"),
+            new PkmItem(3, "Camelia, Adi Wibowo", "Pelatihan Literasi Komputer dan Blogging untuk Guru-Guru Sekolah di SD Negeri Cihuni 2"),
+            new PkmItem(4, "Ririn Ikana Desanti, S.Kom., M.Kom/Friska Natalia, Ph.D./Wira Munggana, S.Si., M.Sc./Ir. Raymond Sunardi Oetama, M.C.I.S. Marcelli Indriana, S.Kom., M.Sc.", "Pengembangan dan Pelatihan Website Gereja Katolik Paroki St. Agustinus Karawaci"),
+            new PkmItem(5, "Johan Setiawan, S.Kom., M.M., M.B.A./Enrico Siswanto, S.Kom., MBA./Yustinus Eko Seoelistio, S. Kom., M.M./Wella, S.Kom., M.MSI., COBIT5", "Pengembangan dan Pelatihan Website Sekolah St. Fidelis Gading Serpong"),
+            new PkmItem(6, "Ardiles Akyuwen, S.Sn., M. Sn.", "Pemberian Materi pada Logawa Photo Workshop yang Ketiga"),
+            new PkmItem(7, "Helga Liliani Cakra Dewi, S.I.Kom., M.Comm./Maria Advenita Gita Elmada, S.I.Kom., M.Si.", "Kegiatan Pengabdian Masyarakat Bidang Pendidikan dan Sosial Desa Sampora, Kecamatan Cisauk"),
+            new PkmItem(8, "Cendera Rizky Anugerah Bangun, Intan Primadini", "Kegiatan Pengabdian Masyarakat Bidang Pendidikan dan Sosial Desa Cibogo, Kecamatan Cisauk"),
+        ];
+
+        $list2019 = [
+            new PkmItem(1, "Oqke Prawira, S.ST, M.Si. Par / Kevin Juliawan, S.E, B.A, M.Par/ Tiki Danawiranti, M.Sc./ Adela Riana, M.Hum.", "Pendampingan dalam Pengelolaan Manajemen Dapur Restoran Saung Cisadane, Desa Keranggan, Kota Tangerang Selatan"),
+            new PkmItem(2, "Septi Fahmi Choirisa, M.Par./ Adestya Ayu, S.ST, M.Si. Par/ Yoanita Alexandra, S.E, B.A, M.Par/ Edi Purnomo, M. Hum.", "Pelatihan Dasar Pramusaji Restoran di Desa Keranggan, Kota Tangerang Selatan"),
+            new PkmItem(3, "Adestya Ayu, S.ST, M.Si. Par / Oqke Prawira, S.ST, M.Si Par/ Kevin Juliawan Surya, S.E, B.A, M.Par/ Yoanita Alexandra, S.E, B.A, M.Par/Septi Fahmi Choirisa, M.Par/ Tiki Danawiranti, M.Sc.", "Pelatihan Pembuatan Kue Durian Khas Desa Padabeunghar, Kuningan Jawa Barat"),
+            new PkmItem(4, "Dyah Ayu Anggreini Tuasikal, S.T., M.T/ Ahmad Syahril Muharom, S.Pd., M.T/ Dwi Dharma Arta Kusuma, S.T., M. Eng/ Dr. Indiwan Seto Wahjuwibowo, M.Si", "Pengolahan Sampah Organik dan Anorganik pada Desa Lengkong Kulon"),
+            new PkmItem(5, "Ardiles Akyuwen, S.Sn., M.Sn./ Clemens Felix Setiyawan, S.Sn., M.Hum./ Rezki Gautama Tanrere, S.Ds., M.Ds./ Fransisca Retno Setyowati Rahardjo, S.Ds., M.Ds./ Tomy Faisal Alim, S.Sn., M.Sn.", "Pelatihan Tradisional Art and Craft Batik Desa Padabeunghar Kecamatan Pesawahan Kabupaten Kuningan Jawa Barat"),
+            new PkmItem(6, "Clemens Felix Setiyawan, S.Sn., M.Hum./ Ardiles Akyuwen, S.Sn., M.Sn./ Rezki Gautama Tanrere, S.Ds., M.Ds./ Fransisca Retno Setyowati Rahardjo, S.Ds., M.Ds./ Tomy Faisal Alim, S.Sn., M.Sn.", "Pembuatan Website Desa Padabeunghar Kecamatan Pesawahan Kabupaten Kuningan Jawa Barat"),
+            new PkmItem(7, "Rezki Gautama Tanrere, S.Ds., M.Ds./ Clemens Felix Setiyawan, S.Sn., M.Hum./ Ardiles Akyuwen, S.Sn., M.Sn./ Fransisca Retno Setyowati Rahardjo, S.Ds., M.Ds./ Tomy Faisal Alim, S.Sn., M.Sn.", "Pembuatan Video Profile Desa Padabeunghar Kecamatan Pesawahan Kabupaten Kuningan Jawa Barat"),
+            new PkmItem(8, "Johan Setiawan, S.Kom., M.M. / Tan Thing Heng, B.Sc., M.Stat./ Agus Sulaiman, S.Kom., M.M./ Enrico Siswanto, S.Kom., M.B.A./ Wendy, S.Kom., M.MSI.", "Pelatihan Pembuatan Konten Pembelajaran pada Sekolah SMA SantoThomas Aquino”"),
+            new PkmItem(9, "Wella, S.Kom., M.MSI., COBIT5. /  Mellisa Indah Fianty, S.Kom., M.MSI./ Iwan Prasetiawan, S.Kom., M.M./   Fransiscus Ati Halim, S.Kom., M.M. / Marcelli Indriana, S.Kom., M.Sc.\n", "“Pembuatan Website Kepengurusan Majelis Buddhayana Indonesia Provinsi Banten”"),
+            new PkmItem(10, "Aminuddin Rizal, S.T., M.Sc./ Fenina Adline Twince Tobing, S.Kom., M.Kom./ Dwi Dharma Arta Kusuma, S.T., M.Eng./ Dareen", "\"Pengukuran Body Mass Index (BMI) untuk Anak – anak di Lembaga Pembinaan Khusus Anak (LPKA) Kelas I Tangerang\""),
+            new PkmItem(11, "Ir. Raymond Sunardi Oetama, MCIS / Yustinus Eko Soelistio, S.Kom., M.M./ Yanti, S.Kom., M.MSI / David Tjahjana, S.Kom., M/MSI ", "“Pembangunan Website Vihara Dharma Ratna”"),
+            new PkmItem(12, "Dr. Florentina Kurniasari, S.Sos., M.B.A. /Farica Perdana Putri, M.Sc\n", "“Penerapan Aplikasi Okupansi Kamar Rawat Inap pada Puskesmas Keranggan Tangerang Selatan”"),
+            new PkmItem(13, "Hendrico Firzandy, S.T., M.Ars. / Irma Desiyana, S.Ars., M.Arch. / Yosephine Sitanggang, S.Ars., M.Ars", "“Perencanaan dan Perancangan Sentra Kuliner di Desa Lengkong Kulon”"),
+            new PkmItem(14, "Elissa Dwi Lestari, S.Sos., M.S.M./ Purnamaningsih, S.E., M.S.M./ Nosica Rizkalla, S.E., M.Sc./ Dyah Ayu Anggreini, S.T., M.T./ Cynthia Sari Dewi, S.E., M.Sc.", "“Penyediaan, Pembuatan Media Belajar Anak sebagai Program Peningkatan Kualitas Pembelajaran di Perkampungan Pemulung di Bintaro Permai III”"),
+            new PkmItem(15, "Adhi Kusnadi, S.T., M.Si. / Nunik Afriliana, S.Kom., M.M.S.I.", "“Menuju Siswa-Siswi Madrasah Aliyah Raudatul Irfan Tersertifikasi Keahlian Ms. Office oleh UMN”"),
+            new PkmItem(16, "Marlinda Vasty Overbeek, S.Kom., M.Kom. / Nabila Husna Shabrina, S.T., M.T./ Nurina Putri Handayani, S.E., M.M./ Melissa Indah Fianty, S.Kom., M.M.S.I.", "“Program Peningkatan Keterampilan Teknologi Informasi di SLB B-C Nurasih Jakarta Selatan”\n\n"),
+            new PkmItem(17, "Dr. Indiwan Seto Wahjuwibowo, M.Si./ Dr. Ir. Winarno, M.Kom./ Dyah Ayu Anggreini Tuasikal, S.T., M.T/ Drs. Yohanes Langgar Billy, M.M.", "“Pendampingan Desa Binaan UMN : Pelatihan dan Marketing Komunikasi Pembuatan Pupuk Cair di Desa Lengkong Kulon Kabupaten Tangerang”"),
+        ];
+
+        $list2020 = [
+            new PkmItem(1, "Dr. Florentina Kurniasari T., S.Sos., M.B.A / Ika Yanuarti, S.E., M.S.F., CSA / Farica Perdana Putri, S.Kom., M.Sc / Purnamaningsih, S.E., M.S.M / Elissa Dwi Lestari, S.Sos., M.S.M ", "Pengembangan Aplikasi Sistem Puskesmas Terpadu (SIPURA) Keranggan, Tangerang Selatan")
+        ];
+
+        $list2021 = [
+            new PkmItem(1, "Yoanita Alexandra, S.E, B.A, M.Par, Dr. Ringkar Situmorang", "Webinar Protokol Kesehatan Industri Perhotelan Selama Masa Pandemi Covid-19 Bagi Siswa SMKN 7 Tangerang"),
+            new PkmItem(2, "Adhi Kusnadi, S.T, M.Si., Yaman Khaeruzzaman, M.Sc., Marlinda Vasty Overbeek, S.Kom., M.Kom, Moeljono Widjaja, B.Sc., M.Sc., Ph.D., Dennis Gunawan, S.Kom, M.Sc", "Rancang Bangun, Sosialisasi dan Pelatihan Aplikasi Mobile Layanan Administrasi Surat-Surat Keterangan Untuk Warga Desa/Kelurahan"),
+            new PkmItem(3, "Oqke Prawira., S.ST, M.Si.Par, Adestya Ayu Armelia., S.St, M.Si.Par", "Bimbingan dan Konseling Karir di Industri Hospitaliti Bagi Siswa SMKN 7, Tangerang"),
+            new PkmItem(4, "Septi Fahmi Choirisa, M.Par, Anton Harianto, M.M ", "Pelatihan Pengembangan diri Bagi Siswa Perhotelan di Tangerang, Indonesia"),
+            new PkmItem(5, "Dr. techn. Rahmi Andarini, S.T., M.Eng.Sc, Fahmi Rinanda Saputri, S.T., M.Eng", "Pelatihan Peningkatan Kesadaran Efisiensi Energi dan Konservasi Energi Pada Sektor Industri Rumah Tangga"),
+            new PkmItem(6, "Fenina Adline Twince Tobing, S.Kom., M.Kom., Marlinda Vasty Overbeek, S.Kom., M.Kom., Eunike Endariahna Surbakti, S.Kom., M.T.I., Fahmy Rinanda Saputri, S.T., M.Eng.", "Aplikasi Laporan Pengelolaan Keuangan DWP LPKA Kelas II Jakarta "),
+            new PkmItem(7, "Iqbal Maimun Umar., S.Sn., M.Ds., Joni Nur Budi, S.Sn., M.Ds", "Pelatihan Ketrampilan Membuat Pot Untuk Anak"),
+            new PkmItem(8, "Adestya Ayu Armielia, S.ST. M.Si.Par., Oqke Prawira., S.ST, M.Si.Par", "Pelatihan Pembuatan Konten Tur Virtual"),
+            new PkmItem(9, "Samiaji Bintang Nusantara S.T., M.A, Veronika S.Sos., M.Si., Taufan Wijaya S.Sos., M.A., Nasrullah S.Sos., M.I.kom., Aditya Heru Wardhana S.T.P., M.A.", "Pelatihan Social Media Storytelling Untuk Warga dan Komunitas Adat "),
+            new PkmItem(10, "Simon Petrus Wenehenubun, S.S., M.M, Dr. Indiwan Seto Wahju Wibowo, M.Si, Drs. Yohanes Langgar Billy, M.M.", "Pelatihan Seni Memimpin Organisasi Bagi Pengurus Osis SMA/SMK Mitra UMN di Kabupaten Tangerang, Banten"),
+            new PkmItem(11, "Irwan Fakhruddin, S.Sn., M.I.Kom., Agus Kustiwa, S.Sos., M.Si., Albertus Magnus Prestianta, S.I.Kom., M.A., Nosica Rizkalla, S.E., M.Sc.", "Peningkatan Kapasitas Kesiapsiagaan Menghadapi Bencana Tsunami Selatan Jawa Bagi Masyarakat Desa Panggarangan, Kecamatan Panggarangan, Kabupaten Lebak"),
+            new PkmItem(12, "Dr. Florentina Kurniasari, S.Sos., M.B.M.Dr Prio Utomo, ST., MPC, Purnamaningsih, S.E., M.S.M,Farica Perdana Putri, S.Kom., M.Sc ,Agatha Masie Tjandra, S.Sn., M.Sn", "Peningkatan Kesehatan Masyarakat Melalui Aplikasi Berbasis Android Pada Dinas Kesehatan Kota Tangerang Selatan"),
+            new PkmItem(13, "Rossalyn Ayu Asmarantika, S.Hum., M.A.,Irwan Fakhruddin, S.Sn., M.I.Kom., Mujiono, S.I.Kom., M.I.Kom., Sita Winiawati Dewi, S.Ikom, MPAS. ", "Pelatihan Konten Digital & Digital Marketing Dalam Rangka Re Aktivasi Kegiatan Bumdes Serdang Wetan Pasca Pandemi Covid-19"),
+            new PkmItem(14, "Fenina Adline Twince Tobing, S.Kom., M.Kom., Dr. Indiwan Seto Wahjuwibowo, M.Si.,Marlinda Vasty Overbeek, S.Kom., M.Kom.,Eunike Endariahna Surbakti, S.Kom., M.T.I", "Kegiatan Pengabdian Kepada Masyarakat Dharma Wanita Persatuan (DWP) LPKA Jakarta Pelatihan Dasar Membatik dan Tie Dye"),
+            new PkmItem(15, "Maria Advenita Gita Elmada, M.Si., Angga Ariestya, M.Si, Irwan Fakhruddin, M.I.Kom.", "Upaya Penyadartahuan Masyarakat Khususnya Generasi Z Terkait Isu Pengelolaan Sisa Makanan "),
+            new PkmItem(16, "Yoanita Alexandra, S.E, B.A, M.Par", "Perancangan Menu Bagi UMKM Kuliner  "),
+            new PkmItem(17, "Melissa Indah Fianty, S.Kom., MMSI,Nabila Husna Shabrina, S.T., M.T., Fahmy Rinanda Saputri, S.T., M.Eng", "Peningkatan Kompetensi Dalam Menyajikan Presentasi Menarik Dan Interaktif Pembelajaran Daring Bagi Guru Madrasah Aliyah Raudhlatul Irfan Desa Lengkong Kulon Dengan Pelatihan Dan Evaluasi Microsoft Power Point"),
+            new PkmItem(18, "Megantara Pura, S.T., M.T., Ahmad Syahril Muharrom, S.Pd., M.T., Muhammad Bima Nugraha, S.T., M.T. ,Dr. Rangga Winantyo, Ph.D., M.Sc, BCS ,Marojahan Tampubolon, S.T., M.Sc., Ph.D.", "Alat Pengukur Kesehatan Untuk Ruang Isolasi Orang Tanpa Gejala (OTG) Kecamatan Cisauk"),
+            new PkmItem(19, "Joni Nur Budi Kawulur, S.Sn., M.Ds. , Iqbal Maimun Umar, S.Sn., M.Ds.", "Workshop Ketrampilan Membuat Wastafel"),
+            new PkmItem(20, "Ir. Arief Iswariyadi, M.Sc., Ph.D., Dr. Mohammad Annas, S.Tr.Par, MM, CSCP, Oqke Prawira, SST.Par, M.Si.Par, Adestya Ayu Armielia, S.ST.M.Si.Par, Erwin Alfian, S.Sn., M.Ds.", "Sosialisasi Dan Pendampingan Implementasi Good Business Practices Bagi Pelaku UMKM Kuliner di Kecamatan Tenjo, Kabupaten Bogor"),
+            new PkmItem(21, "Rahmi Elsa Diana, S.T., M.T., Freta Oktarina, S.Sn., M.Ars.", "Workshop dan Pengenalan Profesi Arsitek untuk Jenjang Sekolah Dasar SDIT Al-Fityan School Tangerang"),
+            new PkmItem(22, "Oqke Prawira., S.ST, M.Si. Par", "Pelatihan Food Safety bagi Pelaku Kuliner di Tangerang"),
+            new PkmItem(23, "Oqke Prawira. T., S.ST, M.Si. Par", "Pelatihan Program CHSE bagi Pelaku UMKM di Tangerang"),
+        ];
+
+        $list2022 = [
+            new PkmItem(1, "Ir. Arief Iswariyadi, M.Sc., Ph.D. / Dr. Mohammad Annas, S.Tr.Par., M.M /Oqke Prawira, SST.Par, M.Si.Par/ Adestya Ayu Armiela, SST.Par, M.Si.Par /Erwin Alfian, S.Sn., M.Ds.", "Sosialisasi Dan Pendampingan Implementasi Good Business Practices Bagi Pelaku UMKM Dodol Di Kecamatan Tenjo, Kabupaten Bogor"),
+            new PkmItem(2, "Darfi Rizkavirwan, S.Sn, M.Ds./Aditya Satyagraha, S.Sn., M.Ds./Adhreza Brahma, M.Ds./Maria Advenita Gita Elmada, S.I.Kom., M.Si./Yohanes Merci Widiastomo S.Sn., M.M.", "Kampanye Tanggap Mitigasi Bencana Tsunami Selatan Jawa Bagi Masyarakat Desa Panggarangan, Kecamatan Panggarangan, Kabupaten Lebak"),
+            new PkmItem(3, "Megantara Pura, S.T., M.T. /Ahmad Syahril Muharrom, S.Pd., M.T. / Muhammad Bima Nugraha, S.T., M.T./ Dr. Rangga Winantyo, Ph.D., M.Sc, BCS / Marojahan Tampubolon, S.T., M.Sc., Ph.D.", "Alat Pengukur Kesehatan Untuk Deteksi Awal Gejala Covid-19"),
+            new PkmItem(4, "Septi Fahmi Choirisa, M.Par/Ringkar Situmorang, PhD/Yoanita Alexandra, S.E., M.Par.", "Soft-Skills Development Workshop For Hotel Vocational School"),
+            new PkmItem(5, "Ririn Ikana Desanti, S.Kom., M.Kom. /Wella, S.Kom., MMSI./ Suryasari, S.Kom., M.T./Jansen Wiratama, S.Kom., M.Kom./Samuel Ady Sanjaya, S.T., M.T.", "Perancangan dan Penerapan Sistem E-Commerce untuk Divisi Pengembangan Usaha Sosial dan Modal (PUSM) Gereja Santo Agustinus Karawaci"),
+            new PkmItem(6, "Putu Yani Pratiwi, S.T., M.M. / Nosica Rizkalla, S.E., M.Sc / Elissa Dwi Lestari, S.Sos., M.S.M./Purnamaningsih, S.E., M.S.M.", "Pemberian Kredit Modal Usaha Untuk Penyediaan Produk Kebutuhan Rumah Tangga Ramah Lingkungan"),
+            new PkmItem(7, "Dr. Ringkar Situmorang., MBA/Yoanita Alexandra M.Par/Septi Fahmi Choirisa., M.Par", "Pelatihan Kreasi Minuman Kopi Bagi Masyarakat Desa Lengkong Kulon"),
+            new PkmItem(8, "Irwan Fakhruddin, S.Sn., M.I.Kom./Agus Kustiwa, S.Sos., M.Si./Albertus Magnus Prestianta, S.I.Kom., M.A./Nosica Rizkalla, S.E., M.Sc. /Elissa Dwi Lestari, S.Sos., M.S.M.", "Peningkatan Kapasitas Kesiapsiagaan Menghadapi Bencana Tsunami Selatan Jawa Bagi Masyarakat Desa Panggarangan, Kecamatan Panggarangan, Kabupaten Lebak"),
+            new PkmItem(9, "Dian Fitria, M.Sc./Rizky Tridamayanti Siregar, S.PD., M.Sc./Yuninda Mukty Ardyanny, S.T., M. Ars.", "Desain Bangunan Inklusif dan Hijau pada Bangunan Fungsi Edukasi di Sekolah Mata Alam"),
+            new PkmItem(10, "Iqbal Maimun Umar, S.Sn., M.Ds./ Joni Nur Budi Kawulur, S.Sn., M.Ds.", "Pelatihan Ketrampilan Rajut, Keramik Dan Vidiografi Di Kampung Jatirangon"),
+            new PkmItem(11, "Petrus Damiami Sitepu, S.Sn., M.I.Kom. / Wida Kurnianda Djamil BFA, MA./Ari Dina Krestiawan, S.Sos., M.Sn./Ignatius Krismawan, S.P./Sita Winiawati Dewi, S.I.Kom., MPAS", "Educational Video Gratifikasi Oleh Komisi Pemberantasan Korupsi Kepada Masyarakat"),
+            new PkmItem(12, "Fenina Adline Twince Tobing, S.Kom., M.Kom/Eunike Endariahna Surbakti, S.Kom., M.T.I./ Marlinda Vasty Overbeek, S.Kom., M.Kom.", "Aplikasi Laporan Pengelolaan Keuangan DWP LPKA Kelas II Jakarta (Lanjutan)"),
+            new PkmItem(13, "Melissa Indah Fianty, S.Kom., MMSI / Nabila Husna Shabrina, S.T., M.T\t/ Fahmy Rinanda Saputri, S.T., M.Eng", "\nPelatihan Project-Based Learning dengan Google Classroom bagi Guru Madrasah Aliyah Raudhlatul Irfan Desa Lengkong Kulon"),
+            new PkmItem(14, "Tomy Faisal Alim S.Sn., M.Sn./ Dr. Indiwan Seto WahjuwibowoM.Si./Rezky Gautama Tanrere S.Ds., M.Ds/Drs. Daru Paramayuga M.Ds.", "Pembuatan Lukisan Mural Dan Signage Di Saung Cisadane Desa Ecowisata Kranggan"),
+            new PkmItem(15, "Oqke Prawira., S.ST, M.Si.Par/ Adestya Ayu A., S.ST. M.Si.Par.", "Pelatihan Program HACCP Bagi Pengusaha UMKM di Wilayah Tangerang"),
+            new PkmItem(16, "Dr Indiwan Seto Wahjuwibowo /Clemens Felix/Ardiles", "Pelatihan video marketing untuk produk batik kemuning"),
+            new PkmItem(17, "Yoanita Alexandra M.Par/Dr. Ringkar Situmorang / Savira Rizki Pradiati", "Pelatihan Coffee Manual Brew bagi Masyarakat Desa Serdang Wetan, Tangerang"),
+            new PkmItem(18, "Marojahan Tampubolon, S.T., M.Sc., Ph.D. / Ahmad Syahril Muharrom, S.Pd.,M.T./ M.B. Nugraha, S.T., M.T./ Dr. Rangga Winantyo, Ph.D., MSc, BCS/ Megantara Pura, S.T, M.T", "Penerapan Penggunaan Lampu Penerangan Umum dengan Tenaga Surya di Pedesaan"),
+            new PkmItem(19, "Zul Tinarbuko, S.Sn.,M.F.A. / Raden Adhitya Indrayuana, S.Pd,. M.Sn", "Lokakarya Produksi Dokumenter Animasi untuk Para Penyintas Migran (Pengungsi & Pencari Suaka)"),
+            new PkmItem(20, "Riatun, S.Sos., M. Si./ Helga Liliani Cakra Dewi /Nicky Stephani / Silvanus Alvin /Mujiono ", "Menuju Smart School: Penerapan Learning Management System (LMS) di Sekolah Dasar Desa Rancagong"),
+            new PkmItem(21, "Veronika, S.Sos., M.Si. / Maria Advenita Gita Elmada, S.I.Kom., M.Si./Helga Liliani Cakra Dewi, S.I.Kom., M.Comm./Taufan Wijaya, S.Sos., M.A. / Ignatius Haryanto", "Peningkatan Komunikasi Digital Komsos Keuskupan Bogor"),
+            new PkmItem(22, "Ardiles Akyuwen, S.Sn., M.Ds./ Clemens Felix Setiyawan, S.Sn., M.Hum./ Rezki Gautama Tanrere, S.Ds., M.Ds./ Mohammad Rizaldi, ST, M.Ds./ Dedy Arpan, S.Ds., M.Ds.", "Perancangan Website pada Kelurahan Keranggan dan Desa Lengkong Kulon sebagai Sarana Informasi"),
+        ];
+
+        $list = [];
+
+        // buat lah if statement baru jika ada variable tahun baru
+        if($year == 2018) {
+            $list = $list2018;
+        } else if($year == 2019) {
+            $list = $list2019;
+        } else if($year == 2020) {
+            $list = $list2020;
+        } else if($year == 2021) {
+            $list = $list2021;
+        } else if($year == 2022) {
+            $list = $list2022;
+        }
+
+        return $this->render('listpkm', [
+            'list' => $list
         ]);
     }
 }
