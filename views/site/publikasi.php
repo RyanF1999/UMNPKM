@@ -16,19 +16,19 @@ $this->params['breadcrumbs'][] = $this->title;
             </a>
         </div>
         <div class="col-6 bg-success">
-            <a href="<?php ?>" class="text-decoration-none text-dark">
+            <a href="https://drive.google.com/file/d/1MNsOmpFmEc0FCaMZylWb2jCb6dSUgpZp/view?usp=sharing" class="text-decoration-none text-dark">
                 Nasional Sinta
             </a>
         </div>
     </div>
     <div class="row publikasi">
         <div class="col-6 bg-warning">
-            <a href="<?php ?>" class="text-decoration-none text-dark">
+            <a href="https://drive.google.com/file/d/1MNsOmpFmEc0FCaMZylWb2jCb6dSUgpZp/view?usp=sharing" class="text-decoration-none text-dark">
                 Proceeding
             </a>
         </div>
         <div class="col-6 bg-info">
-            <a href="<?php ?>" class="text-decoration-none text-dark">
+            <a href="https://drive.google.com/file/d/1UnxoEzsThhg71AY2jhhEE7F2taMxXGvf/view?usp=sharing" class="text-decoration-none text-dark">
                 Hak Kekayaan Intelektual
             </a>
         </div>
